@@ -41,7 +41,7 @@ public class LevelBoundaries : MonoBehaviour
             wrappedPosition.z = gameBoundaries.yMax - wrapOffset;
             wrapping = true;
         }
-        if (wrapping = true) {
+        if (wrapping == true) {
             Debug.Log("should be wrapping");
         }
         return wrappedPosition;

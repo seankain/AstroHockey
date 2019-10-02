@@ -11,6 +11,8 @@ public class Ponger : MonoBehaviour
     private bool isBouncingZ = false;
     private Rigidbody rb;
     private BoundsCheck boundsCheck;
+    private bool outOfBounds = false;
+    private float outOfBoundsTimer = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -38,11 +40,17 @@ public class Ponger : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.rigidbody != null && !string.IsNullOrEmpty(collision.gameObject.name))
+        if (collision.collider.gameObject.layer == 8)
         {
-            Debug.Log($"collision {collision.rigidbody.gameObject.name}");
+            Debug.Log("Hit ponger boundary");
+            rb.velocity = (rb.velocity) * -1;
+            return;
         }
-        if(collision.rigidbody == null) { return; }
+        //if (collision.rigidbody != null && !string.IsNullOrEmpty(collision.gameObject.name))
+        //{
+        //    Debug.Log($"collision {collision.rigidbody.gameObject.name}");
+        //}
+        //if(collision.rigidbody == null) { rb.velocity = (rb.velocity * 0.9f) * -1; return; }
         var rocket = collision.rigidbody.gameObject.GetComponent<Rocket>();
         if (rocket != null)
         {
@@ -62,19 +70,19 @@ public class Ponger : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        var viewportPosition = cam.WorldToViewportPoint(transform.position);
- 
-        if (viewportPosition.x >= 1 || viewportPosition.x <= 0)
-        {
-            rb.velocity = rb.velocity * -1;
-        }
+    //private void Update()
+    //{
+    //    var viewportPosition = cam.WorldToViewportPoint(transform.position);
 
-        if (viewportPosition.y >= 1 || viewportPosition.y <= 0)
-        {
-            rb.velocity = rb.velocity * -1;
-        }
+    //    if (viewportPosition.x >= 1 || viewportPosition.x <= 0 || viewportPosition.y >= 1 || viewportPosition.y <= 0)
+    //    {
+    //        rb.velocity = (rb.velocity * 0.9f) * -1;
+    //    }
 
-    }
+    //    //if (viewportPosition.y >= 1 || viewportPosition.y <= 0)
+    //    //{
+    //    //    rb.velocity = rb.velocity * -1;
+    //    //}
+
+    //}
 }

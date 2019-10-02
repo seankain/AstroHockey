@@ -11,6 +11,7 @@ public class Wraps : MonoBehaviour
     private bool isWrappingZ = false;
     private Rect gameBoundaries;
     private Vector3 prevPosition;
+    private BoundsCheck boundsChecker;
 
     void Start()
     {
@@ -23,6 +24,7 @@ public class Wraps : MonoBehaviour
         gameBoundaries.xMax = topRight.x;
         gameBoundaries.yMax = topRight.y;
         prevPosition = transform.position;
+        boundsChecker = new BoundsCheck(cam);
     }
 
     bool CheckRenderers()
@@ -42,24 +44,31 @@ public class Wraps : MonoBehaviour
 
     private void Update()
     {
-        var isVisible = CheckRenderers();
-        if (isVisible)
+        //var isVisible = CheckRenderers();
+        var oob = boundsChecker.Check(transform.position);
+        if (!oob[0] && !oob[1])
         {
             isWrappingX = false;
             isWrappingZ = false;
             return;
         }
+        //if (isVisible)
+        //{
+        //    isWrappingX = false;
+        //    isWrappingZ = false;
+        //    return;
+        //}
 
         var viewportPosition = cam.WorldToViewportPoint(transform.position);
         var newPosition = transform.position;
 
-        if (!isWrappingX && (viewportPosition.x > 1 || viewportPosition.x < 0))
+        if (!isWrappingX && oob[0] /*(viewportPosition.x > 1 || viewportPosition.x < 0)*/)
         {
             newPosition.x = -newPosition.x;
            isWrappingX = true;
         }
 
-        if (!isWrappingZ && (viewportPosition.y > 1 || viewportPosition.y < 0))
+        if (!isWrappingZ && oob[1] /*(viewportPosition.y > 1 || viewportPosition.y < 0)*/)
         {
             newPosition.z = -(newPosition.z);
             isWrappingZ = true;

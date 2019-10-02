@@ -27,7 +27,8 @@ public class PlayerAgent : Agent
 
     private float idleTime = 0;
     private float prevDistanceToGoal = float.PositiveInfinity;
-
+    private BoundsCheck boundsChecker;
+    private float outOfBoundsTime = 0f;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -38,6 +39,8 @@ public class PlayerAgent : Agent
         OtherGoalLocation.OnScored += () => { opponentScored = true; };
         weapon = GetComponent<Weapon>();
         prevDistanceToGoal = Vector3.Distance(PuckLocation.position, GoalLocation.transform.position);
+        boundsChecker = new BoundsCheck(Camera.main);
+        
     }
 
     public override void AgentReset()
@@ -50,6 +53,7 @@ public class PlayerAgent : Agent
         OtherPlayer.position = new Vector3(Random.Range(-9,9), 0,Random.Range(-5,5));
         goalScored = false;
         opponentScored = false;
+        outOfBoundsTime = 0;
     }
 
     public override void CollectObservations()
@@ -97,6 +101,14 @@ public class PlayerAgent : Agent
 
         if (idle) {
             SetReward(-0.05f);
+        }
+
+        if (boundsChecker.IsOutOfBounds(transform.position))
+        {
+            outOfBoundsTime += Time.deltaTime;
+            if (outOfBoundsTime > 5) { SetReward(-1); Done(); }
+            SetReward(-0.2f);
+
         }
 
         // Rewards

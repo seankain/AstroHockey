@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +24,13 @@ public class BoundsCheck
     public bool IsOutOfBounds(Vector3 position)
     {
         return position.x > gameBoundaries.xMax || position.x < gameBoundaries.xMin || position.z > gameBoundaries.yMax || position.z < gameBoundaries.yMin;
+    }
+
+    public bool[] Check(Vector3 position)
+    {
+        //0 = x
+        //1 = y
+        return new bool[] { position.x >= gameBoundaries.xMax || position.x < gameBoundaries.xMin, position.z >= gameBoundaries.yMax || position.z <= gameBoundaries.yMin };
     }
 
 }

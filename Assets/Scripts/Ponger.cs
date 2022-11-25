@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ponger : MonoBehaviour
 {
-
+    public float MinVelocity = 0.1f;
     private Renderer[] renderers;
     private Camera cam;
     private bool isBouncingX = false;
@@ -13,6 +13,7 @@ public class Ponger : MonoBehaviour
     private BoundsCheck boundsCheck;
     private bool outOfBounds = false;
     private float outOfBoundsTimer = 0f;
+    private List<Collider> currentContacts;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class Ponger : MonoBehaviour
         cam = Camera.main;
         rb = GetComponent<Rigidbody>();
         boundsCheck = new BoundsCheck(cam);
+        currentContacts = new List<Collider>();
     }
 
     bool CheckRenderers()
@@ -43,7 +45,13 @@ public class Ponger : MonoBehaviour
         if (collision.collider.gameObject.layer == 8)
         {
             Debug.Log("Hit ponger boundary");
-            rb.velocity = (rb.velocity) * -1;
+            rb.velocity = Vector3.Reflect(rb.velocity, collision.GetContact(0).normal);
+            if(rb.velocity.sqrMagnitude < MinVelocity)
+            {
+                rb.velocity = (rb.velocity) * 1.5f;
+            }
+            //rb.velocity = (rb.velocity) * -1;
+            //currentContacts.Add(collision.collider);
             return;
         }
         //if (collision.rigidbody != null && !string.IsNullOrEmpty(collision.gameObject.name))
@@ -58,6 +66,10 @@ public class Ponger : MonoBehaviour
         }
     }
 
+    void OnCollisionExit(Collision collision) 
+    {
+        //currentContacts.Remove(collision.collider);
+    }
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log($"collision {other.gameObject.name}");

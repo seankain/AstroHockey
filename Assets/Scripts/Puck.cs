@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Puck : MonoBehaviour
 {
+
+    public AudioSource CollisionAudioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,11 @@ public class Puck : MonoBehaviour
             goal.OnScored.Invoke();
             Destroy(this.gameObject);
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        CollisionAudioSource.Play();
     }
 
     // Update is called once per frame

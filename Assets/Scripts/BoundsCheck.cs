@@ -7,18 +7,27 @@ public class BoundsCheck
 {
     private Camera cam;
     private Rect gameBoundaries;
+    private Vector3 bottomLeft;
+    private Vector3 topRight;
     
 
     public BoundsCheck(Camera camera)
     {
         cam = camera;
         gameBoundaries = new Rect();
-        var bottomLeft = cam.ViewportToWorldPoint(Vector3.zero);
-        var topRight = cam.ViewportToWorldPoint(new Vector3(1, 0, 1));
+        bottomLeft = cam.ViewportToWorldPoint(Vector3.zero);
+        topRight = cam.ViewportToWorldPoint(new Vector3(1, 0, 1));
         gameBoundaries.xMin = bottomLeft.x;
         gameBoundaries.yMin = bottomLeft.z;
         gameBoundaries.xMax = topRight.x;
         gameBoundaries.yMax = topRight.y;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(bottomLeft, Vector3.one);
+        Gizmos.DrawCube(topRight, Vector3.one);
     }
 
     public bool IsOutOfBounds(Vector3 position)

@@ -20,13 +20,12 @@ public class Rocket : MonoBehaviour
     {
 
         var killable = other.gameObject.GetComponentInParent<Killable>();
-        //var tetromino = other.gameObject.GetComponentInParent<Tetromino>();
         var ponger = other.gameObject.GetComponentInParent<Ponger>();
-        if (killable != null && other == killable.HitCollider)
+        if (killable != null/* && other == killable.HitCollider*/)
         {
             Debug.Log($"hit {other.name}");
-            Destroy(gameObject);
             killable.Die();
+            Destroy(gameObject);
             return;
         }
         if(ponger != null)

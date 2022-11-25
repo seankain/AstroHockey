@@ -47,11 +47,11 @@ public class Controls : MonoBehaviour
         currentThrust--;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            t.RotateAround(t.position, Vector3.up, -TurnSpeed);
+            t.RotateAround(t.position, Vector3.up, -TurnSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            t.RotateAround(t.position, Vector3.up, TurnSpeed);
+            t.RotateAround(t.position, Vector3.up, TurnSpeed * Time.deltaTime);
         }
         thrusting = Input.GetKey(KeyCode.UpArrow);
 

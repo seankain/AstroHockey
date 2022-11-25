@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    public AudioSource FireSound;
     public GameObject ProjectilePrefab;
     public Transform weaponPosition;
     private GameObject currentProjectile;
@@ -18,9 +19,10 @@ public class Weapon : MonoBehaviour
     {
         if (currentProjectile == null)
         {
-            currentProjectile = Instantiate(ProjectilePrefab, weaponPosition.position,Quaternion.Euler(new Vector3(90,0,0)));
+            currentProjectile = Instantiate(ProjectilePrefab, weaponPosition.position,Quaternion.identity);
             var rocket = currentProjectile.GetComponent<Rocket>();
             rocket.SetDirectionAndOrigin(gameObject.transform.forward,this.gameObject);
+            FireSound.Play();
         }
     }
 

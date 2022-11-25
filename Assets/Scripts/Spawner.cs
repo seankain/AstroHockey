@@ -13,7 +13,7 @@ public class Spawner : MonoBehaviour
     public delegate void Spawned(int instanceId);
     public Spawned OnSpawned;
 
-
+    public Vector3 SpawnRotation;
     public GameObject Prefab;
     public float SpawnLag = 2;
     public bool IsEnemySpawner = false;
@@ -58,7 +58,7 @@ public class Spawner : MonoBehaviour
 
     private void Spawn()
     {
-       CurrentInstance = Instantiate(Prefab, this.transform.position, Quaternion.identity);
+       CurrentInstance = Instantiate(Prefab, this.transform.position,Quaternion.Euler(SpawnRotation));
         if (OnSpawned != null) { OnSpawned.Invoke(CurrentInstance.GetInstanceID()); }
     }
 }

@@ -24,7 +24,7 @@ public class Scoring : MonoBehaviour
     private bool enemyDeathAssigned = false;
     private Spawner EnemySpawner { get; set; }
     private Spawner PlayerSpawner { get; set; }
-    private Enemy Enemy { get; set; }
+    private ComputerPlayer Enemy { get; set; }
     private Goal PlayerGoal { get; set; }
     private Goal EnemyGoal { get; set; }
 
@@ -99,7 +99,7 @@ public class Scoring : MonoBehaviour
     private void HandleEnemySpawn(int instanceId)
     {
         //if (enemyDeathAssigned) { return; }
-        var enemy = FindObjectOfType<Enemy>();
+        var enemy = FindObjectOfType<ComputerPlayer>();
         enemy.GetComponent<Killable>().OnKilled += HandleEnemyDeath;
         //enemyDeathAssigned = true;
     }

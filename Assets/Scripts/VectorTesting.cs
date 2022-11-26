@@ -9,13 +9,13 @@ public class VectorTesting : MonoBehaviour
     private float elapsed = 0;
     private Puck puck;
     private Goal goal;
-    private Enemy enemy;
+    private ComputerPlayer enemy;
     // Start is called before the first frame update
     void Start()
     {
         puck = FindObjectOfType<Puck>();
         goal = FindObjectOfType<Goal>();
-        enemy = FindObjectOfType<Enemy>();
+        enemy = FindObjectOfType<ComputerPlayer>();
     }
 
     // Update is called once per frame

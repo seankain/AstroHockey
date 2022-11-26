@@ -490,6 +490,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4166976051402310253, guid: 70fe4fa449961a9459e4ab88962fe315,
         type: 3}
+      propertyPath: Team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4166976051402310253, guid: 70fe4fa449961a9459e4ab88962fe315,
+        type: 3}
       propertyPath: Prefab
       value: 
       objectReference: {fileID: 1616327191202548391, guid: 21ad5972b8f617f4ba123387b92c0bdf,
@@ -512,7 +517,7 @@ PrefabInstance:
     - target: {fileID: 5609305456788755679, guid: 70fe4fa449961a9459e4ab88962fe315,
         type: 3}
       propertyPath: m_Name
-      value: EnemySpawner
+      value: RedTeamSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 8452514502939719963, guid: 70fe4fa449961a9459e4ab88962fe315,
         type: 3}
@@ -1195,7 +1200,7 @@ PrefabInstance:
     - target: {fileID: 5609305456788755679, guid: 70fe4fa449961a9459e4ab88962fe315,
         type: 3}
       propertyPath: m_Name
-      value: PlayerSpawner
+      value: BlueTeamSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 8452514502939719963, guid: 70fe4fa449961a9459e4ab88962fe315,
         type: 3}
@@ -1786,9 +1791,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7505b161365f7b41bd8e1aae4db6990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Team: 0
   SpawnRotation: {x: 0, y: 0, z: 0}
   Prefab: {fileID: 2979559751175218054, guid: 669edb247117e09449e1c651756507f8, type: 3}
-  SpawnLag: 2
+  SpawnLag: 0
   IsEnemySpawner: 0
 --- !u!4 &1988484758
 Transform:
